@@ -23,7 +23,7 @@
                     <Link v-for="(product, index) in products" :key="index" href="#" class="flex flex-col w-full p-4 rounded sm:w-1/2 md:w-1/3">
                         <img :src="'/storage/images/' + product.image" :alt="product.name" class="h-72 object-cover md:w-82 lg:w-96">
                         <div class="flex justify-around bg-gray-700 py-2">
-                            <span class="text-yellow-500">{{ product.price }}</span>
+                            <span class="text-yellow-500">{{ formatCurrency(product.price) }}</span>
                             <span class="text-white">{{ product.name }}</span>
                         </div>
                     </Link>
@@ -37,12 +37,15 @@
     import AppLayout from '../../Layouts/AppLayout.vue'; 
     import { Link } from '@inertiajs/vue3';
     import SecondaryHeader from '../../Components/SecondaryHeader.vue';
+    import { formatCurrency } from '@/Helpers/currency.js'
 
     defineProps({
         products: Object,
         categories: Object,
         categoryName: String,
     });
+
+
 </script>
 
 <style lang="scss" scoped>

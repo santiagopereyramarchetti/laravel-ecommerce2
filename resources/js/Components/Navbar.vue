@@ -74,7 +74,7 @@
                 <ResponsiveNavLink :href="route('login')">Login</ResponsiveNavLink>
             </template>
             <div class="pt-2 pb-3 space-y-1">
-                <ResponsiveNavLink href="#">Shop</ResponsiveNavLink>
+                <ResponsiveNavLink :href="route('shop.index')">Shop</ResponsiveNavLink>
             </div>
             <div class="pt-2 pb-3 space-y-1">
                 <ResponsiveNavLink href="#" class="p-0 flex items-center border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-red-700 hover:border-red-700 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition">
