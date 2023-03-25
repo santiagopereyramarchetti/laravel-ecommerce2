@@ -1,12 +1,10 @@
 <template>
     <app-layout :title="`Shop ${categoryName}`">
-        <header class="text-gray-700 bg-gray-300 shadow">
-            <secondary-header>
-                <template #breadcrumbs>
-                    <span> Shop {{ categoryName }}</span>
-                </template>
-            </secondary-header>
-        </header>
+        <secondary-header>
+            <template #breadcrumbs>
+                <span> Shop {{ categoryName }}</span>
+            </template>
+        </secondary-header>
         <div class="flex">
             <div class="border-r w-1/5">
                 <div class="text-white text-center bg-gray-700 py-4">

@@ -48,7 +48,7 @@ class ShopController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return Inertia::render('Shop/Show', compact('product'));
     }
 
     /**

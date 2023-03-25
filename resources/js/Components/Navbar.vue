@@ -23,7 +23,7 @@
                                 <Link  :href="route('register')" class="hover:text-yellow-500 transition">Register</Link>
                                 <Link  :href="route('login')" class="hover:text-yellow-500 transition">Login</Link>
                             </template>
-                            <Link  href="#" class="hover:text-yellow-500 transition">Shop</Link>
+                            <Link  :href="route('shop.index')" class="hover:text-yellow-500 transition">Shop</Link>
                             <form action="POST" @submit.prevent="logout" v-if="$page.props.user">
                                 <button type="subbmit" class="hover:text-yellow-500">Log out</button>
                             </form>
