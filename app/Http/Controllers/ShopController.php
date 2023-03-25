@@ -7,17 +7,24 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class WelcomeController extends Controller
+class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::take(4)->inRandomOrder()->get(['name', 'slug']);
-        $products = Product::all();
-        $featured = Product::where('image', '!=', 'default/no_image.jpg')->take(4)->inRandomOrder()->get(['name', 'slug', 'image']);
-        return Inertia::render('Welcome', compact('products', 'categories', 'featured'));
+        $categories = Category::all();
+        $categoryName = 'All';
+        if(request()->category){
+            $products = Product::whereHas('categories', function ($query) {
+                $query->where('slug', request()->category);
+            })->inRandomOrder()->get();
+            $categoryName = $categories->where('slug', request()->category)->first()->name;
+        }else{
+            $products = Product::inRandomOrder()->get();
+        }
+        return Inertia::render('Shop/Index', compact('products', 'categories', 'categoryName'));
     }
 
     /**

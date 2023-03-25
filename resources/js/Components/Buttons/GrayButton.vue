@@ -18,7 +18,7 @@
     })
 
     const classes = computed(() => {
-        return 'text-md justify-center inline-flex items-center border border-transparent rounded-md font-semibold text-white uppercase tracking-wider hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 transition'
+        return 'p-3 text-md justify-center inline-flex items-center border border-transparent rounded-md font-semibold text-white uppercase tracking-wider hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 transition'
     })
 
 </script>

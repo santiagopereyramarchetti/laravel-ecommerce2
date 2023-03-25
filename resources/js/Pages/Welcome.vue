@@ -6,10 +6,7 @@
             <div class="flex flex-col justify-around items-center absolute inset-0">
                 <span class="text-white text-xl">Lorem ipsum dolor sit amet.</span>
                 <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-                    <gray-button href="#" as="href" class="text-md">Man</gray-button>
-                    <gray-button href="#" as="href" class="text-md">Woman</gray-button>
-                    <gray-button href="#" as="href" class="text-md">Kids</gray-button>
-                    <gray-button href="#" as="href" class="text-md">Home Goods</gray-button>
+                    <gray-button v-for="category in categories" :key="category.id" :href="route('shop.index', {category: category.slug})" as="href" class="text-md">{{ category.name }}</gray-button>
                 </div>
             </div>
         </div>
@@ -17,37 +14,13 @@
             <p>Lorem ipsum dolor sit amet.</p>
         </div>
         <div class="flex flex-col max-w-7xl mx-auto px-4 sm:container sm:flex-row sm:space-x-4 sm:my-4 sm:px-6 lg:px-8">
-            <Link href="#" class="flex flex-col w-full h-full mb-4">
+            <Link v-for="(feat, index) in featured" :key="index" href="#" class="flex flex-col w-full h-full mb-4">
                 <div class="text-center text-white bg-gray-700 py-2">
                     <span>
-                        lorem ipsum
+                        {{feat.name}}
                     </span>
                 </div>
-                <img :src="'/storage/images/default/no_image.jpg'" alt="#" class="h-72 object-cover md:w-72 lg:w-96">
-            </Link>
-            <Link href="#" class="flex flex-col w-full h-full mb-4">
-                <div class="text-center text-white bg-gray-700 py-2">
-                    <span>
-                        lorem ipsum
-                    </span>
-                </div>
-                <img :src="'/storage/images/default/no_image.jpg'" alt="#" class="h-72 object-cover md:w-72 lg:w-96">
-            </Link>
-            <Link href="#" class="flex flex-col w-full h-full mb-4">
-                <div class="text-center text-white bg-gray-700 py-2">
-                    <span>
-                        lorem ipsum
-                    </span>
-                </div>
-                <img :src="'/storage/images/default/no_image.jpg'" alt="#" class="h-72 object-cover md:w-72 lg:w-96">
-            </Link>
-            <Link href="#" class="flex flex-col w-full h-full mb-4">
-                <div class="text-center text-white bg-gray-700 py-2">
-                    <span>
-                        lorem ipsum
-                    </span>
-                </div>
-                <img :src="'/storage/images/default/no_image.jpg'" alt="#" class="h-72 object-cover md:w-72 lg:w-96">
+                <img :src="'/storage/images/' + feat.image" :alt="feat.name" class="h-72 object-cover md:w-72 lg:w-96">
             </Link>
         </div>
         <div class="text-center text-white bg-black px-4 py-4">
@@ -68,7 +41,9 @@
     import GrayButton from '../Components/Buttons/GrayButton.vue';
 
     defineProps({
-        products: Object
+        products: Object,
+        categories: Object,
+        featured: Object,
     })
 </script>
 

@@ -6,22 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Product extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
         'slug',
-        'details',
-        'description',
-        'product_code',
-        'image',
-        'price',
-        'quantity'
+        'category_code',
     ];
 
-    public function categories(): BelongsToMany {
-        return $this->belongsToMany(Category::class);
+    public function products(): BelongsToMany {
+        return $this->belongsToMany(Product::class);
     }
 }
