@@ -14,7 +14,7 @@
             <p>Lorem ipsum dolor sit amet.</p>
         </div>
         <div class="flex flex-col max-w-7xl mx-auto px-4 sm:container sm:flex-row sm:space-x-4 sm:my-4 sm:px-6 lg:px-8">
-            <Link v-for="(feat, index) in featured" :key="index" href="#" class="flex flex-col w-full h-full mb-4">
+            <Link v-for="(feat, index) in featured" :key="index" :href="route('shop.show', feat.slug)" class="flex flex-col w-full h-full mb-4">
                 <div class="text-center text-white bg-gray-700 py-2">
                     <span>
                         {{feat.name}}

@@ -6,7 +6,7 @@
             <span>{{ product.name }}</span>
         </template>
         <template #search>
-            searcc
+            search
         </template>
     </secondary-header>
 
@@ -63,17 +63,36 @@
                     </p>
                 </div>
                 <div class="mt-4">
-                    <div class ="flex items-center">
+                    <template v-if="product.quantity <= 0">
+                        <div class="mt-4">
+                            <span class="text-red-600 font-semibold italic uppercase">Sold Out</span>
+                        </div>
+                    </template>
+                    <template v-else-if="product.quantity <= 5">
+                        <div class="mt-4">
+                            <span class="text-yellow-600 font-semibold italic uppercase">Only a few left</span>
+                        </div>
                         <label for="quantity" class="flex-1 text-xl capitalize">
                             Qty:
                         </label>
                         <select v-model="form.quantity" class="flex-1 w-full border bg-white rounded px-3 py-1 outline-none">
                             <option v-for="(qty, index) in product.quantity" :key="index" :value="qty" :selected="qty === quantity">{{qty}}</option>
                         </select>
-                    </div>
+                    </template>
+                    <template v-else>
+                        <div class ="flex items-center">
+                            <label for="quantity" class="flex-1 text-xl capitalize">
+                                Qty:
+                            </label>
+                            <select v-model="form.quantity" class="flex-1 w-full border bg-white rounded px-3 py-1 outline-none">
+                                <option v-for="(qty, index) in product.quantity" :key="index" :value="qty" :selected="qty === quantity">{{qty}}</option>
+                            </select>
+                        </div>
+                    </template>
+                    
                 </div>
                 <div class="text-center mt-4">
-                    <gray-button as="submit" class="text-sm bg-slate-500">
+                    <gray-button v-if="product.quantity > 0" as="submit" class="text-sm bg-slate-500">
                         <span>Add to Cart</span>
                     </gray-button>
                 </div>
@@ -146,7 +165,7 @@
         details: props.product.details,
         image: props.product.image,
         slug: props.product.slug,
-        quantity: props.product.quantity,
+        quantity: 1,
     })
 
     const submitForm = () => {

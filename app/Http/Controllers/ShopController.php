@@ -16,15 +16,38 @@ class ShopController extends Controller
     {
         $categories = Category::all();
         $categoryName = 'All';
+        $categorySlug = NULL;
         if(request()->category){
-            $products = Product::whereHas('categories', function ($query) {
-                $query->where('slug', request()->category);
-            })->inRandomOrder()->get();
-            $categoryName = $categories->where('slug', request()->category)->first()->name;
+            if(!request()->sort){
+                $products = Product::whereHas('categories', function($query){
+                    $query->where('slug', request()->category);
+                })->inRandomOrder()->get(['name', 'slug', 'price', 'image']);
+                $categoryName = optional($categories->where('slug', request()->category)->first())->name;
+                $categorySlug = optional($categories->where('slug', request()->category)->first())->slug;
+            }else{
+                $products = Product::whereHas('categories', function($query){
+                    $query->where('slug', request()->category);
+                });
+                $categoryName = optional($categories->where('slug', request()->category)->first())->name;
+                $categorySlug = optional($categories->where('slug', request()->category)->first())->slug;
+                if(request()->sort == 'low_high'){
+                    $products = $products->orderBy('price')->get(['name', 'slug', 'price', 'image']);
+                }else{
+                    $products = $products->orderBy('price', 'desc')->get(['name', 'slug', 'price', 'image']);
+                }
+            }
         }else{
             $products = Product::inRandomOrder()->get();
         }
-        return Inertia::render('Shop/Index', compact('products', 'categories', 'categoryName'));
+        // if(request()->category){
+        //     $products = Product::whereHas('categories', function ($query) {
+        //         $query->where('slug', request()->category);
+        //     })->inRandomOrder()->get();
+        //     $categoryName = $categories->where('slug', request()->category)->first()->name;
+        // }else{
+        //     $products = Product::inRandomOrder()->get();
+        // }
+        return Inertia::render('Shop/Index', compact('products', 'categories', 'categoryName', 'categorySlug'));
     }
 
     /**
