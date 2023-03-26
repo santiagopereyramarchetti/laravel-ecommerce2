@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="flex-1 space-y-6 sm:mt-0 sm:border-l sm:pl-4">
-            <form>
+            <form @submit.prevent="submit">
                 <div class="flex justify-between items-center">
                     <h2 class="text-2xl font-semibold capitalize italic">{{ product.name }}</h2>
                     <div class="text-xl capitalize italic">
@@ -166,10 +166,16 @@
         image: props.product.image,
         slug: props.product.slug,
         quantity: 1,
+        totalQty: props.product.quantity,
     })
 
-    const submitForm = () => {
-        form.post()
+    const submit = () => {
+        form.post(route('cart.store'),{
+            preserveScroll: true,
+            onSuccess: () => {
+
+            },
+        })
     }
 
 </script>

@@ -6,7 +6,7 @@
                     Order total(before tax & disscount(s))
                 </span>
                 <span class="text-yellow-500">
-                    $4.00
+                    {{formatCurrency(subtotal)}}
                 </span>
             </div>
             <div>
@@ -19,8 +19,8 @@
             <div>
                 <span class="px-4">Order summary</span>
                 <div class="flex justify-between bg-white px-4 py-2 mt-4">
-                    <span>Item(s) subtotal(5)</span>
-                    <span>$14.99</span>  
+                    <span>Item(s) subtotal({{ $page.props.cartCount }})</span>
+                    <span>{{formatCurrency(subtotal)}}</span>  
                 </div>
                 <div class="flex justify-between px-4 mt-4">
                     <span>Shipping</span>
@@ -35,16 +35,16 @@
                 </div>
                 <div class="flex justify-between px-4 mt-4">
                     <span>Estimated Tax</span>
-                    <span>8.48%</span>  
+                    <span>{{formatCurrency(tax)}}</span>  
                 </div>
                 <div class="px-4 py-2 mt-4 bg-white">
                     <div class="flex justify-between">
-                        <span>Ordern Total</span>
-                        <span>$44.99</span>  
+                        <span>Order Total</span>
+                        <span>{{formatCurrency(total)}}</span>  
                     </div>
                     <div class="flex flex-col">
-                        <span>(8.48% tax rate)</span>
-                        <span>$44.99</span>  
+                        <span>({{taxRate}}% tax rate)</span>
+                        <span>Lorem, ipsum dolor.</span>  
                     </div>
                 </div>
                 <div class="text-center mt-4">
@@ -63,6 +63,14 @@
 <script setup>
     import { Link } from '@inertiajs/vue3';
     import YellowButton from './Buttons/YellowButton.vue';
+    import { formatCurrency } from '@/Helpers/currency.js'
+
+    defineProps({
+        taxRate: Number,
+        subtotal: Number,
+        tax: Number,
+        total: Number
+    })
 </script>
 
 <style lang="scss" scoped>

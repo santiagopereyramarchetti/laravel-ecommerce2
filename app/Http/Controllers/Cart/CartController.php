@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,8 +13,16 @@ class CartController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return Inertia::render('Cart/Index');
+    {   
+        $cartItems = Cart::instance('default')->content();
+        $cartTaxRate = config('cart.tax');
+        $cartSubtotal = (float) Cart::instance('default')->subtotal();
+        $tax = config('cart.tax')/100;
+        $cartTax = $cartSubtotal * $tax;
+        $newTotal = (float) Cart::instance('default')->total();
+        $laterItems = Cart::instance('laterCart')->content();
+        $laterCount = Cart::instance('laterCart')->count();
+        return Inertia::render('Cart/Index', compact('cartItems', 'cartTaxRate', 'cartSubtotal', 'cartTax', 'newTotal', 'laterItems', 'laterCount'));
     }
 
     /**
@@ -28,8 +37,9 @@ class CartController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        Cart::instance('default')->add($request->id, $request->name, $request->quantity, $request->price, 0, ['totalQty' => $request->totalQty, 'product_code' => $request->product_code, 'image' => $request->image, 'slug' => $request->slug, 'details' => $request->details])->associate('App\Models\Product');
+        return redirect()->route('cart.index');
     }
 
     /**
