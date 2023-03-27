@@ -63,7 +63,8 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Cart::instance('default')->update($id, $request->quantity);
+        return back();
     }
 
     /**

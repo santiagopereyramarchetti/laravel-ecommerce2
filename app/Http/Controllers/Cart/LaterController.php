@@ -67,7 +67,8 @@ class LaterController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Cart::instance('laterCart')->update($id, $request->quantity);
+        return back();
     }
 
     /**

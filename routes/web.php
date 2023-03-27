@@ -28,7 +28,9 @@ Route::get('/shop/{product:slug}', [ShopController::class, 'show'])->name('shop.
 /* CART */
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('store', [CartController::class, 'store'])->name('cart.store');
+Route::patch('store/{product}', [CartController::class, 'update'])->name('cart.update');
 Route::post('cart/later/{product}', [LaterController::class, 'store'])->name('later.store');
+Route::patch('cart/later/{product}', [LaterController::class, 'update'])->name('later.update');
 Route::post('cart/move/{product}', [LaterController::class, 'moveToCart'])->name('later.moveToCart');
 Route::delete('cart/{product}', [LaterController::class, 'destroy'])->name('later.destroy');
 Route::delete('cart/later/{product}', [LaterController::class, 'destroyLater'])->name('later.destroyLater');
