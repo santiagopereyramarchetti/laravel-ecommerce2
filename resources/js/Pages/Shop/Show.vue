@@ -173,7 +173,10 @@
         form.post(route('cart.store'),{
             preserveScroll: true,
             onSuccess: () => {
-
+                Toast.fire({
+                    icon: 'success',
+                    title: `${form.name} has successfully added`
+                })
             },
         })
     }

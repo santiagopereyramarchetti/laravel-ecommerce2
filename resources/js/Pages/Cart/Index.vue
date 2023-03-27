@@ -63,7 +63,10 @@
         cartForm.post(route('later.store', id),{
             preserveScroll: true,
             onSuccess: () => {
-
+                Toast.fire({
+                    icon: 'success',
+                    title: `Item added to later cart`
+                })
             }
         })
     }
@@ -72,7 +75,10 @@
         cartForm.post(route('later.moveToCart', id),{
             preserveScroll: true,
             onSuccess: () => {
-
+                Toast.fire({
+                    icon: 'success',
+                    title: `Item added to cart`
+                })
             }
         })
     }
@@ -81,7 +87,10 @@
         cartForm.delete(route('later.destroy', id),{
             preserveScroll: true,
             onSuccess: () => {
-
+                Toast.fire({
+                    icon: 'success',
+                    title: `Item deleted`
+                })
             }
         })
     }
@@ -90,7 +99,10 @@
         cartForm.delete(route('later.destroyLater', id),{
             preserveScroll: true,
             onSuccess: () => {
-
+                Toast.fire({
+                    icon: 'success',
+                    title: `Item deleted`
+                })
             }
         })
     }
@@ -100,7 +112,10 @@
         cartForm.patch(route('cart.update', id),{
             preserveScroll: true,
             onSuccess: () => {
-
+                Toast.fire({
+                    icon: 'success',
+                    title: `Items in cart updated`
+                })
             }
         })
     }
@@ -110,7 +125,10 @@
         cartForm.patch(route('later.update', id),{
             preserveScroll: true,
             onSuccess: () => {
-
+                Toast.fire({
+                    icon: 'success',
+                    title: `Items in later cart updated`
+                })
             }
         })
     }
