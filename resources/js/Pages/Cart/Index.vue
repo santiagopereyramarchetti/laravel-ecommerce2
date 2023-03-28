@@ -26,7 +26,7 @@
 
             </div>
             <div class="flex-1">
-                <order-totals :taxRate="cartTaxRate" :subtotal="cartSubtotal" :tax="cartTax" :total="newTotal"></order-totals>
+                <order-totals :taxRate="cartTaxRate" :subtotal="cartSubtotal" :newSubtotal="newSubtotal" :tax="newTax" :total="newTotal" :code="code" :discount="discount"></order-totals>
             </div>
         </div>
 
@@ -45,10 +45,13 @@
         cartItems: Object,
         cartTaxRate: Number,
         cartSubtotal: Number,
-        cartTax: Number,
+        newTax: Number,
+        newSubtotal: Number,
         newTotal: Number,
         laterItems: Object,
         laterCount: Number,
+        code: String,
+        discount: Number,
     })
 
     const quantity = 1

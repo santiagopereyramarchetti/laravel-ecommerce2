@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
+use App\Services\CartService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -12,17 +13,21 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CartService $cartService)
     {   
-        $cartItems = Cart::instance('default')->content();
-        $cartTaxRate = config('cart.tax');
-        $cartSubtotal = (float) Cart::instance('default')->subtotal();
-        $tax = config('cart.tax')/100;
-        $cartTax = $cartSubtotal * $tax;
-        $newTotal = (float) Cart::instance('default')->total();
-        $laterItems = Cart::instance('laterCart')->content();
-        $laterCount = Cart::instance('laterCart')->count();
-        return Inertia::render('Cart/Index', compact('cartItems', 'cartTaxRate', 'cartSubtotal', 'cartTax', 'newTotal', 'laterItems', 'laterCount'));
+       
+        return Inertia::render('Cart/Index',[
+            'cartItems' => $cartService->setCartValues()->get('cartItems'),
+            'cartTaxRate' => $cartService->setCartValues()->get('cartTaxRate'),
+            'cartSubtotal' => $cartService->setCartValues()->get('cartSubtotal'),
+            'newTax' => $cartService->setCartValues()->get('newTax'),
+            'code' =>$cartService->setCartValues()->get('code'),
+            'discount' => $cartService->setCartValues()->get('discount'),
+            'newSubtotal' => $cartService->setCartValues()->get('newSubtotal'),
+            'newTotal' => $cartService->setCartValues()->get('newTotal'),
+            'laterItems' =>$cartService->setCartValues()->get('laterItems'),
+            'laterCount' => $cartService->setCartValues()->get('laterCount'),
+        ]);
     }
 
     /**
