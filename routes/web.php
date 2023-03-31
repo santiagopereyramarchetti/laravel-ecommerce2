@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\LaterController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CuponController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
@@ -40,6 +41,11 @@ Route::delete('cart/later/{product}', [LaterController::class, 'destroyLater'])-
 /* CUPON */
 Route::post('/cupon', [CuponController::class, 'store'])->name('cupon.store');
 Route::delete('/cupon', [CuponController::class, 'destroy'])->name('cupon.destroy');
+
+/* CHECKOUT */
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
 
 Route::middleware([
     'auth:sanctum',

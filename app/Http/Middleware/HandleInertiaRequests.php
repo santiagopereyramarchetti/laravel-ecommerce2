@@ -39,6 +39,8 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'cartCount' => Cart::instance('default')->count(),
+            'stripe_key' => env('STRIPE_KEY'),
+            'stripe_secret' => env('STRIPE_SECRET')
         ]);
     }
 }

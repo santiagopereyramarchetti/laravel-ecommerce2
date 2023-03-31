@@ -7,12 +7,17 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import states from '@/Data/states.js'
 
 const form = useForm({
     name: '',
     email: '',
     password: '',
     password_confirmation: '',
+    address: '',
+    city: '',
+    state: '',
+    zip_code: '',
     terms: false,
 });
 
@@ -83,6 +88,53 @@ const submit = () => {
                     autocomplete="new-password"
                 />
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="address" value="Address" />
+                <TextInput
+                    id="address"
+                    v-model="form.address"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="address"
+                />
+                <InputError class="mt-2" :message="form.errors.address" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="city" value="City" />
+                <TextInput
+                    id="city"
+                    v-model="form.city"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="city"
+                />
+                <InputError class="mt-2" :message="form.errors.city" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="state" value="State" />
+                <select v-model="form.state" id="state" class="block appearance-none w-full bg-gray-100 text-gray-700 border border-gray-400 py-2 px-4 pr-8 rounded" required>
+                    <option v-for="(state, index) in states" :key="index" :selected="state === form.state" :value="state">{{ state }}</option>
+                </select>
+                <InputError class="mt-2" :message="form.errors.state" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="zip_code" value="Postal Code" />
+                <TextInput
+                    id="zip_code"
+                    v-model="form.zip_code"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="zip_code"
+                />
+                <InputError class="mt-2" :message="form.errors.zip_code" />
             </div>
 
             <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">

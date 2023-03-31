@@ -10,7 +10,7 @@
                 </span>
             </div>
             <div>
-                <yellow-button href="#">
+                <yellow-button :href="route('checkout.index')" as="href">
                     Secure checkout
                 </yellow-button>
             </div>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-4">
-                    <yellow-button href="#">
+                    <yellow-button :href="route('checkout.index')" as="href">
                         Secure checkout
                     </yellow-button>
                 </div>

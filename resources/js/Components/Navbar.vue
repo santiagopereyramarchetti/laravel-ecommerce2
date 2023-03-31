@@ -17,14 +17,13 @@
 
                     <!-- Settings Dropdown -->
                     <div class="ml-3 relative">
-                        <div class="flex-items-center space-x-3 relative">
-                            <Link v-if="$page.props.user" :href="route('dashboard')" class="hover:text-yellow-500 transition">Register</Link>
-                            <template v-else>
+                        <div class="flex flex-items-center space-x-3 relative">
+                            <template v-if="!$page.props.auth.user">
                                 <Link  :href="route('register')" class="hover:text-yellow-500 transition">Register</Link>
                                 <Link  :href="route('login')" class="hover:text-yellow-500 transition">Login</Link>
                             </template>
                             <Link  :href="route('shop.index')" class="hover:text-yellow-500 transition">Shop</Link>
-                            <form action="POST" @submit.prevent="logout" v-if="$page.props.user">
+                            <form action="POST" @submit.prevent="logout" v-if="$page.props.auth.user">
                                 <button type="subbmit" class="hover:text-yellow-500">Log out</button>
                             </form>
                             <Link  :href="route('cart.index')" class="hover:text-red-700 transition ">
