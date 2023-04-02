@@ -62,7 +62,7 @@
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
                                         Email 
                                     </label>
-                                    <input :class=" {'opacity-50 cursor-not-allowed' : disabled }" v-model="form.email" type="email" class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-100 rounded py-2 px-4" id="email" required>
+                                    <input v-model="form.email" type="email" class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-100 rounded py-2 px-4" id="email" required>
                                     <span v-if="errors.email" class="flex justify-center text-md text-red-600 mt-2">{{errors.email[0]}}</span>
                                 </div>
                             </div>

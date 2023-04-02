@@ -4,6 +4,7 @@ use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\LaterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CuponController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -42,10 +43,20 @@ Route::delete('cart/later/{product}', [LaterController::class, 'destroyLater'])-
 Route::post('/cupon', [CuponController::class, 'store'])->name('cupon.store');
 Route::delete('/cupon', [CuponController::class, 'destroy'])->name('cupon.destroy');
 
-/* CHECKOUT */
+/* GUEST USERS CHECKOUT */
+Route::get('/guest/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/guest/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+/* AUTH USERS CHECKOUT */
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
+/* ORDERS */
+
+Route::middleware('auth:sanctum', 'verified')->group(function() {
+    Route::get('my-orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('my-orders/invoice/{order:confirmation_number}', [OrderController::class, 'show'])->name('orders.show');
+});
 
 Route::middleware([
     'auth:sanctum',

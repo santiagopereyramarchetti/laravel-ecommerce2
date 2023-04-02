@@ -39,12 +39,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'name' => $input['name'],
                 'email' => $input['email'],
             ])->save();
-            $user->billingDetail()->forceFill([
+            $user->billingDetail()->update([
                 'address' => $input['address'],
                 'city' => $input['city'],
                 'state' => $input['state'],
                 'zip_code' => $input ['zip_code']
-            ])->save();
+            ]);
         }
     }
 

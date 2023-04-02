@@ -31,6 +31,6 @@ class CheckoutFormRequest extends FormRequest
             'city' => ['required', 'string', 'min:2', 'max:20'],
             'state' => ['required', 'string', 'min:2', 'max:20'],
             'zip_code' => ['required', 'string', 'min:5', 'max:15'],
-        ];
+        ]; 
     }
 }

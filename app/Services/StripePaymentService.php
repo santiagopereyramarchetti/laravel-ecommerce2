@@ -15,6 +15,13 @@ class StripePaymentService implements PaymentGatewayContract{
     }
 
     public function charge($user, $request, $confirmation_number){
+        if(session()->has('cupon')){
+            $discountValue = session()->get('cupon')['discount']/100;
+            $discountCode = session()->get('cupon')['name'];
+        }else{
+            $discountValue = 0;
+            $discountCode = 'NULL';
+        }
 
         $payment = $user->charge(ceil($request->amount), $request->payment_method_id, [
             'receipt_email' => $request->email,
@@ -24,6 +31,7 @@ class StripePaymentService implements PaymentGatewayContract{
                 'Confirmation # ' => $confirmation_number,
                 'Item(s)' => $this->cartItems,
                 'Total Item(s) Count' => Cart::instance('default')->count(),
+                'Discount' => $discountCode.': -$'.$discountValue.' off',
             ]
         ]);
         $payment = $payment->asStripePaymentIntent();

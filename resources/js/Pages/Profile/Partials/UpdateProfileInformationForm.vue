@@ -8,6 +8,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import states from '@/Data/states.js'
 
 const props = defineProps({
     user: Object,
@@ -18,6 +19,10 @@ const form = useForm({
     name: props.user.name,
     email: props.user.email,
     photo: null,
+    address: props.user.billing_detail.address,
+    city: props.user.billing_detail.city,
+    state: props.user.billing_detail.state,
+    zip_code: props.user.billing_detail.zip_code
 });
 
 const verificationLinkSent = ref(null);
@@ -171,6 +176,54 @@ const clearPhotoFileInput = () => {
                         A new verification link has been sent to your email address.
                     </div>
                 </div>
+            </div>
+
+             <!-- Address -->
+             <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="address" value="Address" />
+                <TextInput
+                    id="address"
+                    v-model="form.address"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="address"
+                />
+                <InputError :message="form.errors.address" class="mt-2" />
+            </div>
+
+            <!-- City -->
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="city" value="City" />
+                <TextInput
+                    id="city"
+                    v-model="form.city"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="city"
+                />
+                <InputError :message="form.errors.city" class="mt-2" />
+            </div>
+
+            <!-- State -->
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="state" value="State" />
+                <select v-model="form.state" id="state" class="block appearance-none w-full bg-gray-100 text-gray-700 border border-gray-400 py-2 px-4 pr-8 rounded" required>
+                    <option v-for="(state, index) in states" :key="index" :selected="state === form.state" :value="state">{{ state }}</option>
+                </select>
+                <InputError class="mt-2" :message="form.errors.state" />
+            </div>
+
+            <!-- City -->
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="zip_code" value="Zip Code" />
+                <TextInput
+                    id="zip_code"
+                    v-model="form.zip_code"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="zip_code"
+                />
+                <InputError :message="form.errors.zip_code" class="mt-2" />
             </div>
         </template>
 

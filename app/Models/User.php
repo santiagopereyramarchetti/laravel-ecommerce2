@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,7 +63,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    protected $with = ['billingDetail'];
+
     public function billingDetail(): HasOne{
         return $this->hasOne(BillingDetail::class);
+    }
+
+    public function orders(): HasMany{
+        return $this->hasMany(Order::class);
     }
 }
