@@ -4,6 +4,8 @@ use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\LaterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CuponController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
@@ -20,28 +22,23 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+/* WELCOME */
+Route::get('/', WelcomeController::class)->name('welcome');
 
 /* SHOP */
-
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/shop/{product:slug}', [ShopController::class, 'show'])->name('shop.show');
+Route::resource('shop', ShopController::class)->parameters(['shop' => 'product:slug'])->only(['index', 'show']);
 
 /* CART */
-Route::get('cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('store', [CartController::class, 'store'])->name('cart.store');
-Route::patch('store/{product}', [CartController::class, 'update'])->name('cart.update');
-Route::post('cart/later/{product}', [LaterController::class, 'store'])->name('later.store');
-Route::patch('cart/later/{product}', [LaterController::class, 'update'])->name('later.update');
-Route::post('cart/move/{product}', [LaterController::class, 'moveToCart'])->name('later.moveToCart');
-Route::delete('cart/{product}', [LaterController::class, 'destroy'])->name('later.destroy');
-Route::delete('cart/later/{product}', [LaterController::class, 'destroyLater'])->name('later.destroyLater');
-
+Route::resource('cart', CartController::class)->parameters(['cart' => 'product'])->except(['edit', 'create']);
+Route::prefix('cart/later/')->name('later.')->group(function() {
+    Route::post('{product}', [LaterController::class, 'store'])->name('store');
+    Route::patch('{product}', [LaterController::class, 'update'])->name('update');
+    Route::delete('{product}', [LaterController::class, 'destroyLater'])->name('destroyLater');
+    Route::post('move/{product}', [LaterController::class, 'moveToCart'])->name('moveToCart');
+});
 
 /* CUPON */
-Route::post('/cupon', [CuponController::class, 'store'])->name('cupon.store');
-Route::delete('/cupon', [CuponController::class, 'destroy'])->name('cupon.destroy');
+Route::resource('cupon', CuponController::class)->parameters(['cupon' => ''])->only(['store', 'destroy']);
 
 /* GUEST USERS CHECKOUT */
 Route::get('/guest/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
@@ -52,18 +49,9 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
 /* ORDERS */
-
 Route::middleware('auth:sanctum', 'verified')->group(function() {
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::get('my-orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('my-orders/invoice/{order:confirmation_number}', [OrderController::class, 'show'])->name('orders.show');
-});
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::resource('invoice', InvoiceController::class)->parameters(['invoice' => 'order:confirmation_number'])->only(['show', 'store']);
 });

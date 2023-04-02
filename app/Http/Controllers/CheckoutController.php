@@ -4,33 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Contracts\PaymentGatewayContract;
 use App\Http\Requests\CheckoutFormRequest;
+use App\Mail\OrderRecived;
 use App\Models\Product;
 use App\Models\User;
 use App\Services\CartService;
+use App\Services\InvoiceService;
 use App\Services\OrderService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Stripe\Exception\CardException;
 use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
+
+    
+
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index(CartService $cartService)
+    public function index()
     {
 
         $content = [
-            'cartItems' => $cartService->setCartValues()->get('cartItems'),
-            'cartTaxRate' => $cartService->setCartValues()->get('cartTaxRate'),
-            'cartSubtotal' => $cartService->setCartValues()->get('cartSubtotal'),
-            'newTax' => $cartService->setCartValues()->get('newTax'),
-            'code' =>$cartService->setCartValues()->get('code'),
-            'discount' => $cartService->setCartValues()->get('discount'),
-            'newSubtotal' => $cartService->setCartValues()->get('newSubtotal'),
-            'newTotal' => $cartService->setCartValues()->get('newTotal'),
+            'cartItems' => $this->cartService->setCartValues()->get('cartItems'),
+            'cartTaxRate' => $this->cartService->setCartValues()->get('cartTaxRate'),
+            'cartSubtotal' => $this->cartService->setCartValues()->get('cartSubtotal'),
+            'newTax' => $this->cartService->setCartValues()->get('newTax'),
+            'code' =>$this->cartService->setCartValues()->get('code'),
+            'discount' => $this->cartService->setCartValues()->get('discount'),
+            'newSubtotal' => $this->cartService->setCartValues()->get('newSubtotal'),
+            'newTotal' => $this->cartService->setCartValues()->get('newTotal'),
         ];
 
         if(Cart::instance('default')->count() == 0){
@@ -56,7 +67,7 @@ class CheckoutController extends Controller
      * Store a newly created resource in storage.
      */
 
-    public function store(PaymentGatewayContract $paymentService, OrderService $orderService, CheckoutFormRequest $request)
+    public function store(PaymentGatewayContract $paymentService, OrderService $orderService, CheckoutFormRequest $request, InvoiceService $invoiceService)
     {
         try{
             
@@ -68,9 +79,29 @@ class CheckoutController extends Controller
 
             foreach(Cart::instance('default')->content() as $item){
                 $product = Product::find($item->model->id);
+                if($product->quantity < $item->qty){
+                    if($product->quantity === 0){
+                        return response([
+                            'errors' => 'Sorry ' . $item->name . ' is no longer available. Please remove the item from yor cart'
+                        ], 400);
+                    }
+                    return response([
+                        'errors' => 'Sorrt! there are only ' . $product->quantity . ' of ' . $item->name . ' left. Please adjust the quantities in your cart'
+                    ]);
+                }
                 $order->products()->attach($product, ['quantity' => $item->qty]);
+                $product->decrement('quantity', $item->qty);
             }
             
+            Cart::instance('default')->destroy();
+            if(session()->has('cupon')){
+                session()->forget('cupon');
+            }
+
+            $userInvoice = auth()->user() ?? $order->billing_email;
+
+            Mail::to($userInvoice)->send(new OrderRecived($order->load('products'), $invoiceService->createInvoice($order)));
+
             return response([
                 'success' => true,
                 'order' => [

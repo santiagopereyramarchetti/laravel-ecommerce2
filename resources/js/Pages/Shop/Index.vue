@@ -24,9 +24,7 @@
                     <Link :href="route('shop.index', {category: categorySlug, sort: 'high_low'})" class="hover:text-yellow-500">High to Low</Link>
                 </div>
                 <div class="container flex flex-wrap mx-auto">
-                    <div v-if="products.length === 0" class="flex justify-center my-4 mx-auto">
-                        <img src="/storage/images/site_images/droids.jpg" alt="Not found">
-                    </div>
+                    <no-items v-if="products.lenght === 0"></no-items>
                     <Link v-for="(product, index) in products" :key="index" :href="route('shop.show', {slug: product.slug})" class="flex flex-col w-full p-4 rounded sm:w-1/2 md:w-1/3">
                         <img :src="'/storage/images/' + product.image" :alt="product.name" class="h-72 object-cover md:w-82 lg:w-96">
                         <div class="flex justify-around bg-gray-700 py-2">
@@ -45,6 +43,7 @@
     import { Link } from '@inertiajs/vue3';
     import SecondaryHeader from '../../Components/SecondaryHeader.vue';
     import { formatCurrency } from '@/Helpers/currency.js'
+    import NoItems from '../../Components/NoItems.vue';
 
     defineProps({
         products: Object,
