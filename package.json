@@ -19,6 +19,8 @@
     },
     "dependencies": {
         "@stripe/stripe-js": "^1.52.0",
-        "sweetalert2": "^11.7.3"
+        "algoliasearch": "^4.16.0",
+        "sweetalert2": "^11.7.3",
+        "vue-instantsearch": "^4.8.8"
     }
 }

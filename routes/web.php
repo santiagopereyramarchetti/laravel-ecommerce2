@@ -7,10 +7,10 @@ use App\Http\Controllers\CuponController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Search\AlgoliaSearchController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,3 +55,6 @@ Route::middleware('auth:sanctum', 'verified')->group(function() {
     Route::get('my-orders/invoice/{order:confirmation_number}', [OrderController::class, 'show'])->name('orders.show');
     Route::resource('invoice', InvoiceController::class)->parameters(['invoice' => 'order:confirmation_number'])->only(['show', 'store']);
 });
+
+/* SEARCHS */
+Route::get('/search-algolia', [AlgoliaSearchController::class, 'index'])->name('searchAlgolia.index');

@@ -4,6 +4,9 @@
             <template #breadcrumbs>
                 <span> Shop {{ categoryName }}</span>
             </template>
+            <template #search>
+                <auto-complete></auto-complete>
+            </template>
         </secondary-header>
         <div class="flex">
             <div class="border-r w-1/5">
@@ -44,6 +47,7 @@
     import SecondaryHeader from '../../Components/SecondaryHeader.vue';
     import { formatCurrency } from '@/Helpers/currency.js'
     import NoItems from '../../Components/NoItems.vue';
+    import AutoComplete from '../../Components/Search/AutoComplete.vue';
 
     defineProps({
         products: Object,

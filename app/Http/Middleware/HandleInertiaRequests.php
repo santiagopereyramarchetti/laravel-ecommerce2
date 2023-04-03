@@ -40,7 +40,9 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'cartCount' => Cart::instance('default')->count(),
             'stripe_key' => env('STRIPE_KEY'),
-            'stripe_secret' => env('STRIPE_SECRET')
+            'stripe_secret' => env('STRIPE_SECRET'),
+            'algolia_key' => env('ALGOLIA_APP_ID'),
+            'algolia_secret' => env('ALGOLIA_SECRET')
         ]);
     }
 }
