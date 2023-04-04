@@ -43,7 +43,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {   
-        Cart::instance('default')->add($request->id, $request->name, $request->quantity, $request->price, 0, ['totalQty' => $request->totalQty, 'product_code' => $request->product_code, 'image' => $request->image, 'slug' => $request->slug, 'details' => $request->details])->associate('App\Models\Product');
+        Cart::instance('default')->add($request->id, $request->name, $request->quantity, $request->price, 0, ['totalQty' => $request->totalQty, 'product_code' => $request->product_code, 'main_image' => $request->main_image, 'slug' => $request->slug, 'details' => $request->details])->associate('App\Models\Product');
         return redirect()->route('cart.index');
     }
 
@@ -75,8 +75,9 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Cart::instance('default')->remove($id);
+        return back();
     }
 }

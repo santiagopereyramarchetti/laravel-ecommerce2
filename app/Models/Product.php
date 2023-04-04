@@ -17,9 +17,14 @@ class Product extends Model
         'details',
         'description',
         'product_code',
-        'image',
+        'main_image',
+        'alt_images',
         'price',
         'quantity'
+    ];
+
+    protected $casts = [
+        'alt_images' => 'array',
     ];
 
     public function searchableAs(): string
@@ -35,7 +40,8 @@ class Product extends Model
             'details' => $this->details,
             'description' => $this->description,
             'product_code' => $this->product_code,
-            'image' => $this->image,
+            'main_image' => $this->main_image,
+            'alt_images' => $this->alt_images,
             'price' => $this->price,
             'quantity' => $this->quantity,
             'categories' => $this->categories->pluck('name')->toArray(),

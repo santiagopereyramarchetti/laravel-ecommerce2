@@ -21,6 +21,7 @@
         "@stripe/stripe-js": "^1.52.0",
         "algoliasearch": "^4.16.0",
         "sweetalert2": "^11.7.3",
-        "vue-instantsearch": "^4.8.8"
+        "vue-instantsearch": "^4.8.8",
+        "vue3-carousel": "^0.2.16"
     }
 }

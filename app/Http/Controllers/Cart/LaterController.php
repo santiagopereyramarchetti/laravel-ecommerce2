@@ -39,7 +39,7 @@ class LaterController extends Controller
                                         0, 
                                         ['totalQty' => $item->options->totalQty,
                                          'product_code' => $item->options->product_code,
-                                         'image' => $item->options->image,
+                                         'main_image' => $item->options->main_image,
                                          'slug' => $item->options->slug,
                                          'details' => $item->options->details
                                         ])->associate('App\Models\Product');
@@ -71,15 +71,6 @@ class LaterController extends Controller
         return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        Cart::instance('default')->remove($id);
-        return back();
-    }
-
     public function moveToCart($id)
     {
         $item = Cart::instance('laterCart')->get($id);
@@ -92,7 +83,7 @@ class LaterController extends Controller
                                         0, 
                                         ['totalQty' => $item->options->totalQty,
                                          'product_code' => $item->options->product_code,
-                                         'image' => $item->options->image,
+                                         'main_image' => $item->options->main_image,
                                          'slug' => $item->options->slug,
                                          'details' => $item->options->details
                                         ])->associate('App\Models\Product');

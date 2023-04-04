@@ -39,14 +39,6 @@ class ShopController extends Controller
         }else{
             $products = Product::inRandomOrder()->get();
         }
-        // if(request()->category){
-        //     $products = Product::whereHas('categories', function ($query) {
-        //         $query->where('slug', request()->category);
-        //     })->inRandomOrder()->get();
-        //     $categoryName = $categories->where('slug', request()->category)->first()->name;
-        // }else{
-        //     $products = Product::inRandomOrder()->get();
-        // }
         return Inertia::render('Shop/Index', compact('products', 'categories', 'categoryName', 'categorySlug'));
     }
 
@@ -71,7 +63,11 @@ class ShopController extends Controller
      */
     public function show(Product $product)
     {
-        return Inertia::render('Shop/Show', compact('product'));
+        $categories = $product->categories;
+        foreach($categories as $category){
+            $similarProducts = $category->products->shuffle()->take(4);
+        }
+        return Inertia::render('Shop/Show', compact('product', 'similarProducts'));
     }
 
     /**

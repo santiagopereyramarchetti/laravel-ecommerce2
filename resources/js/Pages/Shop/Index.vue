@@ -29,7 +29,7 @@
                 <div class="container flex flex-wrap mx-auto">
                     <no-items v-if="products.lenght === 0"></no-items>
                     <Link v-for="(product, index) in products" :key="index" :href="route('shop.show', {slug: product.slug})" class="flex flex-col w-full p-4 rounded sm:w-1/2 md:w-1/3">
-                        <img :src="'/storage/images/' + product.image" :alt="product.name" class="h-72 object-cover md:w-82 lg:w-96">
+                        <img :src="'/storage/images/' + product.main_image" :alt="product.name" class="h-72 object-cover md:w-82 lg:w-96">
                         <div class="flex justify-around bg-gray-700 py-2">
                             <span class="text-yellow-500">{{ formatCurrency(product.price) }}</span>
                             <span class="text-white">{{ product.name }}</span>

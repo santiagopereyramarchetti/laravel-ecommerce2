@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-    import { usePage, Link, route } from '@inertiajs/vue3';
+    import { usePage, Link, router } from '@inertiajs/vue3';
     import algoliasearch from 'algoliasearch/lite'
     import Icons from '../Icons.vue';
 
@@ -68,7 +68,7 @@
     )
 
     const search = () => {
-        route.get(route('searchAlgolia.index'))
+        router.get(route('searchAlgolia.index'))
     }
 
 </script>

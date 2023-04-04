@@ -10,7 +10,7 @@
         <div v-for="(item, index) in items" :key="index" class="flex justify-between border-b border-black py-2">
             <div class="flex space-x-4 w-1/2">
                 <Link :href="route('shop.show', item.options.slug)">
-                    <img class="object-cover" :src="`/storage/images/${item.options.image}`" alt="">
+                    <img class="object-cover" :src="`/storage/images/${item.options.main_image}`" alt="">
                 </Link>
                 <div class="flex flex-1 flex-col justify-between">
                     <Link :href="route('shop.show', item.options.slug)" class="flex flex-col">

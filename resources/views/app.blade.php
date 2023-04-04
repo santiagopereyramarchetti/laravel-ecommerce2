@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.0.0/themes/satellite-min.css" integrity="sha256-p/rGN4RGy6EDumyxF9t7LKxWGg6/MZfGhJM/asKkqvA=" crossorigin="anonymous">
+        @livewireStyles
 
         <!-- Scripts -->
         @routes
@@ -18,5 +19,7 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+
+        @livewireScripts
     </body>
 </html>

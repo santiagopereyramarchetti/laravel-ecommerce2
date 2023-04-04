@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('details');
             $table->text('description');
             $table->string('product_code');
-            $table->string('image')->default('default/no_image.jpg');
+            $table->string('main_image')->default('default/no_image.jpg');
+            $table->string('alt_images')->nullable();
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('quantity');
             $table->timestamps();

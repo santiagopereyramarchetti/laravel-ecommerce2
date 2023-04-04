@@ -87,7 +87,7 @@
     }
 
     const deleteFromCart = (id) => {
-        cartForm.delete(route('later.destroy', id),{
+        cartForm.delete(route('cart.destroy', id),{
             preserveScroll: true,
             onSuccess: () => {
                 Toast.fire({
