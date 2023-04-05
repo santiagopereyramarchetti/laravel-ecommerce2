@@ -21,7 +21,7 @@ class ShopController extends Controller
             if(!request()->sort){
                 $products = Product::whereHas('categories', function($query){
                     $query->where('slug', request()->category);
-                })->inRandomOrder()->get(['name', 'slug', 'price', 'image']);
+                })->inRandomOrder()->get(['name', 'slug', 'price', 'main_image']);
                 $categoryName = optional($categories->where('slug', request()->category)->first())->name;
                 $categorySlug = optional($categories->where('slug', request()->category)->first())->slug;
             }else{
@@ -31,9 +31,9 @@ class ShopController extends Controller
                 $categoryName = optional($categories->where('slug', request()->category)->first())->name;
                 $categorySlug = optional($categories->where('slug', request()->category)->first())->slug;
                 if(request()->sort == 'low_high'){
-                    $products = $products->orderBy('price')->get(['name', 'slug', 'price', 'image']);
+                    $products = $products->orderBy('price')->get(['name', 'slug', 'price', 'main_image']);
                 }else{
-                    $products = $products->orderBy('price', 'desc')->get(['name', 'slug', 'price', 'image']);
+                    $products = $products->orderBy('price', 'desc')->get(['name', 'slug', 'price', 'main_image']);
                 }
             }
         }else{

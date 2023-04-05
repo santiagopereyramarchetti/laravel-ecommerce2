@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
                 'product_code' => $category->category_code . '-00' . $i,
                 'price' => rand(999, 9999),
                 'quantity' => rand(1,10),
-                'main_image' => 'products/womens-' . $i . '.png'
+                'main_image' => 'images/products/womens-' . $i . '.png'
             ]);
 
             $product->categories()->attach($category);
@@ -42,7 +42,7 @@ class ProductSeeder extends Seeder
                 'product_code' => $category->category_code . '-00' . $i,
                 'price' => rand(999, 9999),
                 'quantity' => rand(1,10),
-                'main_image' => 'products/mens-' . $i . '.png'
+                'main_image' => 'images/products/mens-' . $i . '.png'
             ]);
             $product->categories()->attach($category);
         }
@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
                 'product_code' => $category->category_code . '-00' . $i,
                 'price' => rand(999, 9999),
                 'quantity' => rand(1,10),
-                'main_image' => 'products/kids-' . $i . '.png'
+                'main_image' => 'images/products/kids-' . $i . '.png'
             ]);
             $product->categories()->attach($category);
         }
@@ -74,7 +74,7 @@ class ProductSeeder extends Seeder
                 'product_code' => $category->category_code . '-00' . $i,
                 'price' => rand(999, 9999),
                 'quantity' => rand(1,10),
-                'main_image' => 'products/homegoods-' . $i . '.png'
+                'main_image' => 'images/products/homegoods-' . $i . '.png'
                 
             ]);
             $product->categories()->attach($category);

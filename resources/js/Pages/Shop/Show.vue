@@ -13,7 +13,7 @@
     <div class="max-w-7xl mx-auto px-4 py-4 sm:flex sm:space-x-4 sm:px-6 lg:px-8">
         <div class="flex-1 sm:border-r">
             <div id="img-container" class="border-2 mx-auto p-2 cursor-zoom">
-                <img id="current-img" :src="`/storage/images/${currentImg}`" :alt="product.name" class="w-full h-full object-cover">
+                <img id="current-img" :src="`/storage/${currentImg}`" :alt="product.name" class="w-full h-full object-cover">
             </div>
             <!-- <div class="border-2 p-2">
                 <img class="w-full object-cover" :src="`/storage/images/${product.main_image}`" :alt="product.name">
@@ -22,7 +22,7 @@
                 <Carousel :settings="settings" :breakpoints="breakpoints">
                     <Slide @click="changeCurrentImage(image, index)" v-for="(image, index) in slides" :key="index" :class="{ slected: index === isActive, 'border-red-600': index === isActive}" class="cursor-pointer border-2 border-black hover:border-blue-600">
                         <div class="carousel__item">
-                            <img :src="`/storage/images/${image}`" alt="" :class="{'opacity-50': index !== isActive}" class="w-full h-full object-cover">
+                            <img :src="`/storage/${image}`" alt="" :class="{'opacity-50': index !== isActive}" class="w-full h-full object-cover">
                         </div>
                     </Slide>
 
@@ -147,7 +147,7 @@
                 </div>
                 <div class="flex space-x-4">
                     <Link v-for="(item, index) in similarProducts" :key="index" :href="route('shop.show', item.slug)" class="flex border border-black w-1/4 h-24">
-                        <img class="w-full object-cover" :src="`/storage/images/${item.main_image}`" :alt="item.name">
+                        <img class="w-full object-cover" :src="`/storage/${item.main_image}`" :alt="item.name">
                     </Link>
                 </div>
             </div>
