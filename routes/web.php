@@ -41,8 +41,8 @@ Route::prefix('cart/later/')->name('later.')->group(function() {
 Route::resource('cupon', CuponController::class)->parameters(['cupon' => ''])->only(['store', 'destroy']);
 
 /* GUEST USERS CHECKOUT */
-Route::get('/guest/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/guest/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/guest/checkout', [CheckoutController::class, 'index'])->name('checkout.guest.index');
+Route::post('/guest/checkout', [CheckoutController::class, 'store'])->name('checkout.guest.store');
 
 /* AUTH USERS CHECKOUT */
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
